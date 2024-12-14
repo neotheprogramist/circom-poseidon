@@ -1,0 +1,6 @@
+[submodule "poseidon-hash"]
+	path = poseidon-hash
+	url = git@github.com:ingonyama-zk/poseidon-hash.git
+[submodule "circomlib"]
+	path = circomlib
+	url = git@github.com:iden3/circomlib.git
