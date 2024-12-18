@@ -481,8 +481,13 @@ def poseidon_hash(a, b, initial_state=0):
     # Final MixLast
     return mix_last(t, POSEIDON_M, 0, state)
 
-# Example Usage
+
 if __name__ == "__main__":
-    inputs = [1, 2]
-    result = poseidon_hash(a=inputs[0], b=inputs[1])
+    import argparse
+    parser = argparse.ArgumentParser(description="Compute the Poseidon hash for two inputs.")
+    parser.add_argument("a", type=int, help="First input for the Poseidon hash.")
+    parser.add_argument("b", type=int, help="Second input for the Poseidon hash.")
+    args = parser.parse_args()
+
+    result = poseidon_hash(a=args.a, b=args.b)
     print("Poseidon hash result:", result)
