@@ -483,11 +483,21 @@ def poseidon_hash(a, b, initial_state=0):
 
 
 if __name__ == "__main__":
-    import argparse
-    parser = argparse.ArgumentParser(description="Compute the Poseidon hash for two inputs.")
-    parser.add_argument("a", type=int, help="First input for the Poseidon hash.")
-    parser.add_argument("b", type=int, help="Second input for the Poseidon hash.")
+    import argparse, json
+    parser = argparse.ArgumentParser(description="Compute the Poseidon hash for two inputs from a JSON file.")
+    parser.add_argument("json_file", type=str, help="Path to the JSON file containing the inputs.")
     args = parser.parse_args()
 
-    result = poseidon_hash(a=args.a, b=args.b)
+    # Read and parse the JSON file
+    with open(args.json_file, "r") as file:
+        data = json.load(file)
+
+    # Ensure the JSON contains the required inputs
+    if "inputs" not in data or len(data["inputs"]) != 2:
+        raise ValueError("The JSON file must contain 'inputs' with exactly two integers.")
+
+    a, b = data["inputs"]
+
+    # Compute the Poseidon hash
+    result = poseidon_hash(a=a, b=b)
     print("Poseidon hash result:", result)
