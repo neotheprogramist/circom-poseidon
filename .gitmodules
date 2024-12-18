@@ -1,6 +1,3 @@
-[submodule "poseidon-hash"]
-	path = poseidon-hash
-	url = git@github.com:neotheprogramist/poseidon-hash.git
 [submodule "circomlib"]
 	path = circomlib
 	url = git@github.com:neotheprogramist/circomlib.git

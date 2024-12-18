@@ -9,42 +9,29 @@ This repository contains scripts and tools for running Circom and a Python-based
 ## Circom
 
 ### Steps to Run:
+
 1. Execute the Circom script:
-    ```bash
-    ./run-circom.sh
-    ```
-2. The output is logged and also saved in `target/public.json`.
+   ```bash
+   ./run-circom.sh
+   ```
+2. The output is logged.
 
 ---
 
 ## Python Poseidon Hash
 
 ### Steps to Set Up and Run:
-1. Create a Python virtual environment:
-    ```bash
-    python -m venv .venv
-    ```
-2. Activate the virtual environment:
-    - On Linux/macOS:
-        ```bash
-        source .venv/bin/activate
-        ```
-    - On Windows (Command Prompt):
-        ```bash
-        .venv\\Scripts\\activate
-        ```
-3. Install the required dependencies:
-    ```bash
-    pip install -r poseidon-hash/requirements.txt
-    ```
-4. Run the Poseidon Hash script:
-    ```bash
-    python poseidon-hash/main.py
-    ```
+
+1. Execute the Python script:
+   ```bash
+   ./circom-poseidon.py
+   ```
+2. The output is logged.
 
 ---
 
 ## Notes
+
 - Ensure you have the necessary dependencies installed and properly configured for Circom and Python.
 - For any issues or questions, refer to the documentation or open an issue in this repository.
 
