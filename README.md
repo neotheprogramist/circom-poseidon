@@ -12,7 +12,7 @@ This repository contains scripts and tools for running Circom and a Python-based
 
 1. Execute the Circom script:
    ```bash
-   ./run-circom.sh
+   ./poseidon.sh poseidon.input.json
    ```
 2. The output is logged.
 
@@ -24,7 +24,7 @@ This repository contains scripts and tools for running Circom and a Python-based
 
 1. Execute the Python script:
    ```bash
-   ./circom-poseidon.py
+   ./poseidon.py poseidon.input.json
    ```
 2. The output is logged.
 
