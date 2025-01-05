@@ -8,16 +8,14 @@ pub fn poseidon_hash(x: Fr, y: Fr) -> Fr {
 
     let state = Poseidon { constants, result };
 
-    let result = state
+    state
         .apply_ark(0)
         .apply_first_half_of_full_rounds()
         .apply_middle_round()
         .apply_partial_rounds()
         .apply_second_half_of_full_rounds()
         .apply_sigma()
-        .apply_mix_last(0);
-
-    result
+        .apply_mix_last(0)
 }
 
 struct Poseidon<T: Iterator<Item = Fr>> {
@@ -28,10 +26,10 @@ struct Poseidon<T: Iterator<Item = Fr>> {
 impl<T: Iterator<Item = Fr>> Poseidon<T> {
     fn apply_second_half_of_full_rounds(self) -> Poseidon<impl Iterator<Item = Fr>> {
         self.apply_sigma()
-            .apply_ark((8 / 2 + 1) * 3 + 57 + 0 * 3)
+            .apply_ark((8 / 2 + 1) * 3 + 57)
             .apply_mix_m()
             .apply_sigma()
-            .apply_ark((8 / 2 + 1) * 3 + 57 + 1 * 3)
+            .apply_ark((8 / 2 + 1) * 3 + 57 + 3)
             .apply_mix_m()
             .apply_sigma()
             .apply_ark((8 / 2 + 1) * 3 + 57 + 2 * 3)
@@ -201,7 +199,7 @@ impl<T: Iterator<Item = Fr>> Poseidon<T> {
     }
 
     fn apply_partial_round(self, r: usize) -> Poseidon<impl Iterator<Item = Fr>> {
-        let c = self.constants.c.clone();
+        let c = self.constants.c;
         let result = self.result.enumerate().map(move |(i, val)| {
             let i_f = Fr::from_be_bytes_mod_order(&i.to_be_bytes());
             ((i_f - Fr::from(1)) * (i_f - Fr::from(2)) / Fr::from(2))
