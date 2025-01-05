@@ -435,11 +435,10 @@ def mix_last(t, M, s, state):
 def mix_s(t, S, r, state):
     """Applies the MixS step of the Poseidon hash."""
     result = [
-        sum((S[(t * 2 - 1) * r + i] * state[i]) % CIRCOM_P for i in range(t)) % CIRCOM_P
+        sum(( 0 + state[i] * S[(t * 2 - 1) * r + i]) % CIRCOM_P for i in range(t)) % CIRCOM_P,
+        sum((-state[i] * i * (i - 2) + state[i] * S[(t * 2 - 1) * r + t + 1 - 1] * (i - 1) * (i - 2) // 2) % CIRCOM_P for i in range(t)) % CIRCOM_P,
+        sum((state[i] * i * (i - 1) // 2 + state[i] * S[(t * 2 - 1) * r + t + 2 - 1] * (i - 1) * (i - 2) // 2) % CIRCOM_P for i in range(t)) % CIRCOM_P
     ]
-    result.extend(
-        (state[i] + state[0] * S[(t * 2 - 1) * r + t + i - 1]) % CIRCOM_P for i in range(1, t)
-    )
     return result
 
 def poseidon_hash(a, b, initial_state=0):
@@ -466,8 +465,7 @@ def poseidon_hash(a, b, initial_state=0):
 
     # Partial rounds
     for r in range(n_rounds_p):
-        state[0] = sigma(state[0])
-        state = mix_s(t, POSEIDON_S, r, [state[0] + POSEIDON_C[(n_rounds_f // 2 + 1) * t + r]] + state[1:])
+        state = mix_s(t, POSEIDON_S, r, [sigma(state[0]) + POSEIDON_C[(n_rounds_f // 2 + 1) * t + r]] + state[1:])
 
     # Second half of full rounds
     for r in range(n_rounds_f // 2 - 1):
